@@ -1,0 +1,52 @@
+Cloud Engineer Coding Test
+
+The goal of this test is to understand how you think about and approach problems through code. The solution you produce should be an example of your best work and should demonstrate your knowledge and community best practices for Python, Terraform and any other technologies used..
+
+Requirements
+Create a containerized command- line Python application that connects to multiple hosts over SSH and runs a command on all of them simultaneously, displaying thestream outputing the output from stdout and stderr to the console in real-time.
+
+
+The application should accept multiple hosts as arguments as well as a single command that will be run on each host.
+
+Output from each host should be shown as soon as data is available on stdout or stderr from a connected host..
+
+The application should exit cleanly on SIGINT.
+
+The application should be able to use public key authentication via ssh-agent.
+
+The application should be packaged using Python community best practices.
+
+Use of the OpenSSH client binary is allowed, but is not necessarily the best approach.
+
+The solution for the test should be delivered as a link to a public GitHub repository containing the project.
+
+The project should contain a working Dockerfile that builds the solution.
+
+How long you spend on the solution is up to you, but it should clearly demonstrate your skill and viewpoint as an engineer.
+
+What We’re Looking For
+There are a large number of possible solutions for this test. The solution you choose should be what you feel is the best balance of features, performance, elegance, maintainability, security and completion time given the requirements and should be a demonstration of your best work. Each aspect of the architecture should demonstrate a clear understanding of the tradeoffs involved in software engineering.
+
+
+With this in mind, how you implement the solution is entirely up to you. The reasoning behind your architecture decisions for the solution is as important as the quality of the implementation. In particular, we are looking for the following from the solution:
+
+
+Appropriate use of modern Python syntax and features.
+
+Smart use of features in the Python standard library.
+
+Appropriate use of third-party packages if included in the solution.
+
+Elegant, maintainable and “Pythonic” code following Python community best practices.
+
+Third party library selection
+
+SSH binary can be used, but discouragedEfficient use of processes and threads.
+
+Any features that go beyond the requirements can improve your score, but the implementation quality of the core requirements is the most important.
+
+
+The solution needn’t address all of the above explicitly. We will be looking at the solution as a whole, taking into account your architectural decision making and the tradeoffs involved.
+
+
+
