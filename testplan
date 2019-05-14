@@ -1,0 +1,183 @@
+1)sudo docker run --env user=vrao --env hosts=config.bruhi.com,mane.bruhi.com --env command="date;ls" 7af44e0ec45e
+
+['config.bruhi.com', 'mane.bruhi.com']
+date;ls
+vrao
+Host [config.bruhi.com] -Mon May 13 22:05:29 EDT 2019
+
+Host [config.bruhi.com] -a
+
+Host [config.bruhi.com] -b
+
+Host [config.bruhi.com] -dev
+
+Host [config.bruhi.com] -freeswitch.xml.fsxml
+
+Host [config.bruhi.com] -noip-duc-linux.tar.gz
+
+Host [config.bruhi.com] -pcre-8.42.tar.gz
+
+Host [mane.bruhi.com] -Mon May 13 22:05:29 EDT 2019
+
+Host [mane.bruhi.com] -a
+
+Host [mane.bruhi.com] -b
+
+Host [mane.bruhi.com] -dev
+
+Host [mane.bruhi.com] -freeswitch.xml.fsxml
+
+Host [mane.bruhi.com] -noip-duc-linux.tar.gz
+
+Host [mane.bruhi.com] -pcre-8.42.tar.gz
+
+
+
+2) MBP:moduxbox vrao$ docker build -t parallelssh .
+Sending build context to Docker daemon    126kB
+Step 1/13 : FROM python:3
+ ---> a4cc999cf2aa
+Step 2/13 : RUN pip3 install parallel-ssh
+ ---> Using cache
+ ---> f9056db51a8e
+Step 3/13 : ADD multipleParallelSsh.py .
+ ---> Using cache
+ ---> 26348a461b1f
+Step 4/13 : ADD id_rsa .
+ ---> Using cache
+ ---> c9f968f2f06b
+Step 5/13 : ADD id_rsa.pub .
+ ---> Using cache
+ ---> 5f5f002d9983
+Step 6/13 : ADD authorized_keys .
+ ---> Using cache
+ ---> ab7c2f9bf51a
+Step 7/13 : RUN whoami
+ ---> Using cache
+ ---> a42bd79b8c50
+Step 8/13 : RUN ls -al
+ ---> Using cache
+ ---> 10fe5863396f
+Step 9/13 : ENV hosts mane.bruhi.com
+ ---> Using cache
+ ---> dabeccab24a8
+Step 10/13 : ENV user vsrao
+ ---> Using cache
+ ---> 603f297da8b0
+Step 11/13 : ENV command "date"
+ ---> Using cache
+ ---> ea2042ac6c83
+Step 12/13 : USER nobody
+ ---> Using cache
+ ---> 4e2c6e5ae0f0
+Step 13/13 : ENTRYPOINT python3 ./multipleParallelSsh.py -ch $hosts -u $user -c $command
+ ---> Using cache
+ ---> 37f860fac75e
+Successfully built 37f860fac75e
+Successfully tagged parallelssh:latest
+s-MBP:moduxbox vrao$ docker build -t parallelssh .
+
+2) s-MBP:moduxbox vrao$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+parallelssh         latest              37f860fac75e        About an hour ago   1GB
+<none>              <none>              95b0f0f91354        About an hour ago   1GB
+<none>              <none>              0fdf6bfae005        About an hour ago   1GB
+<none>              <none>              408da68670b5        2 hours ago         1GB
+<none>              <none>              63aa57193884        2 hours ago         1GB
+<none>              <none>              28c411e2b809        4 hours ago         1GB
+<none>              <none>              c3cc79f48b82        4 hours ago         1GB
+<none>              <none>              b8ad4408ac68        4 hours ago         1GB
+<none>              <none>              d87247227aae        4 hours ago         1GB
+<none>              <none>              b33ca1cd97bb        4 hours ago         1GB
+<none>              <none>              16d997402ed2        4 hours ago         1GB
+<none>              <none>              63ac99e79dff        5 hours ago         1GB
+<none>              <none>              b44c6a84bff4        5 hours ago         1GB
+<none>              <none>              c9b7d5c258e4        5 hours ago         1GB
+<none>              <none>              bcddaf5fee6a        5 hours ago         1GB
+<none>              <none>              29703b1cea31        5 hours ago         1GB
+<none>              <none>              d205b8d1d621        5 hours ago         1GB
+<none>              <none>              c087e3c4f3fb        5 hours ago         1GB
+<none>              <none>              6de4e93c9a2e        5 hours ago         1GB
+<none>              <none>              4b3307046db8        5 hours ago         1GB
+<none>              <none>              1291b77c1c24        6 hours ago         1GB
+<none>              <none>              90b6e8dcbdd5        6 hours ago         1GB
+<none>              <none>              43e22fd6bfa1        6 hours ago         1GB
+<none>              <none>              353097c5d1b3        6 hours ago         1GB
+<none>              <none>              ed64223da57e        6 hours ago         1GB
+<none>              <none>              9e7560ba87fe        6 hours ago         1GB
+<none>              <none>              b49c207cbb85        6 hours ago         1GB
+<none>              <none>              845b215a971b        6 hours ago         1GB
+<none>              <none>              49aa0b0c8eea        6 hours ago         1GB
+<none>              <none>              078ae9b778b4        6 hours ago         1GB
+python              3                   a4cc999cf2aa        5 days ago          929MB
+
+=========================================================================================
+3) MBP:moduxbox vrao$ docker run -it --rm parallelssh 
+['mane.bruhi.com']
+date
+vsrao
+Host [mane.bruhi.com] -Mon May 13 17:13:08 EDT 2019
+=============================================================================================
+
+4) MBP:moduxbox vrao$ docker run -it --rm parallelssh 
+['mane.bruhi.com', 'mane.bruhi.com', 'mane.bruhi.com', 'mane.bruhi.com']
+uname
+vsrao
+Host [mane.bruhi.com] -Linux
+
+Host [mane.bruhi.com_we3koq6b] -Linux
+
+Host [mane.bruhi.com_rj6ypota] -Linux
+
+Host [mane.bruhi.com_3gpj4y3c] -Linux
+
+
+=================================================================================================
+5)s-MBP:moduxbox vrao$ python3 multipleParallelSsh.py -ch localhost,localhost,localhost -c uname -u vrao
+['localhost', 'localhost', 'localhost']
+uname
+vrao
+Host [localhost] -Darwin
+
+Host [localhost_wl2hldbv] -Darwin
+
+Host [localhost_zhf28eyt] -Darwin
+
+s-MBP:moduxbox vrao$ 
+==================================================================================================
+6) 
+
+sudo docker run --env user=vrao --env hosts=config.bruhi.com,mane.bruhi.com --env command="date;ls" 7af44e0ec45e
+
+['config.bruhi.com', 'mane.bruhi.com']
+date;ls
+vrao
+Host [config.bruhi.com] -Mon May 13 22:05:29 EDT 2019
+
+Host [config.bruhi.com] -a
+
+Host [config.bruhi.com] -b
+
+Host [config.bruhi.com] -dev
+
+Host [config.bruhi.com] -freeswitch.xml.fsxml
+
+Host [config.bruhi.com] -noip-duc-linux.tar.gz
+
+Host [config.bruhi.com] -pcre-8.42.tar.gz
+
+Host [mane.bruhi.com] -Mon May 13 22:05:29 EDT 2019
+
+Host [mane.bruhi.com] -a
+
+Host [mane.bruhi.com] -b
+
+Host [mane.bruhi.com] -dev
+
+Host [mane.bruhi.com] -freeswitch.xml.fsxml
+
+Host [mane.bruhi.com] -noip-duc-linux.tar.gz
+
+Host [mane.bruhi.com] -pcre-8.42.tar.gz
+
+
